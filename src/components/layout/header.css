@@ -1,0 +1,12 @@
+.dark-nav {
+   background-color:  #222437;
+   color: #fff;
+}
+
+.dark-nav-toggler {
+    border-color: transparent !important;
+}
+
+.dark-nav-toggler:focus {
+    outline: 0px;
+}

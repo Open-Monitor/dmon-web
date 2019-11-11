@@ -1,0 +1,17 @@
+.main-cont {
+    background-color: #1c1e2f;
+}
+
+.dark-card {
+    background-color: #222437 !important;
+}
+.dark-card-header {
+    color: white;
+    background-color: transparent !important;
+    border: none !important;
+}
+.dark-card-header h1 {
+    color: white;
+    letter-spacing: 3px;
+    margin-bottom: 0px;
+}

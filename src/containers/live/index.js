@@ -5,6 +5,8 @@ import { connectSocket } from '../../helpers';
 
 import { Line } from 'react-chartjs-2';
 import { Container, Row, Col, Card } from 'react-bootstrap';
+import './index.css';
+
 const connectToLiveSocket = (appendCb) => connectSocket(
     `${manifest.hostMonitor}/live`,
     (live) => {
@@ -20,12 +22,12 @@ export default () => {
 
     return (
         <div>
-        <Container fluid="true" className="py-5" style={{backgroundColor: '#e8e8e8'}}>
+        <Container fluid="true" className="main-cont py-5">
         <Row className="">
-          <Col className="mx-auto mt-5" sm={6}>
-            <Card className="text-center">
-            <Card.Header>
-              CPU
+          <Col className="mx-auto mt-5" sm={10} md={6}>
+            <Card className="dark-card text-center">
+            <Card.Header className="dark-card-header">
+              <h1>CPU</h1>
             </Card.Header>
             <Card.Body>
             <Line data={{
@@ -39,15 +41,34 @@ export default () => {
                   hoverBorderColor: 'rgba(255,99,132,1)',
                   data: transmissionPackets,
                 }]
-            }} />
+            }}
+            options={{
+              scales: {
+              xAxes: [{
+                gridLines: {
+                  display: false,
+                },
+              }],
+              yAxes: [{
+                gridLines: {
+                  display: true,
+                  color: 'rgba(45,50,73,1)',
+                  lineWidth: 2,
+                  drawTicks: false,
+                  drawBorder: false,
+                },
+              }],
+              },
+            }}
+            />
             </Card.Body>
             <Card.Footer className="text-muted">PUT FILTERS HERE</Card.Footer>
             </Card>
           </Col>
-          <Col className="mx-auto mt-5" sm={6}>
-            <Card className="text-center">
-              <Card.Header>
-                Network
+          <Col className="mx-auto mt-5" sm={10} md={6}>
+            <Card className="dark-card text-center">
+              <Card.Header className="dark-card-header">
+                <h1>Network</h1>
               </Card.Header>
               <Card.Body>
                 <Line data={{
@@ -66,10 +87,10 @@ export default () => {
               <Card.Footer className="text-muted">PUT FILTERS HERE</Card.Footer>
             </Card>
           </Col>
-          <Col className="mx-auto mt-5" sm={6}>
-            <Card className="text-center">
-              <Card.Header>
-                Network
+          <Col className="mx-auto mt-5" sm={10} md={6}>
+            <Card className="dark-card text-center">
+              <Card.Header className="dark-card-header">
+                <h1>Network</h1>
               </Card.Header>
               <Card.Body>
                 <Line data={{
@@ -88,10 +109,10 @@ export default () => {
               <Card.Footer className="text-muted">PUT FILTERS HERE</Card.Footer>
             </Card>
           </Col>
-          <Col className="mx-auto mt-5" sm={6}>
-            <Card className="text-center">
-              <Card.Header>
-                Network
+          <Col className="mx-auto mt-5" sm={10} md={6}>
+            <Card className="dark-card text-center">
+              <Card.Header className="dark-card-header">
+                <h1>Network</h1>
               </Card.Header>
               <Card.Body>
                 <Line data={{
