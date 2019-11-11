@@ -1,10 +1,11 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 
 import manifest from '../../config/manifest';
 import { connectSocket } from '../../helpers';
 
 import { Line } from 'react-chartjs-2';
 import { Container, Row, Col, Card } from 'react-bootstrap';
+
 import './index.css';
 
 const connectToLiveSocket = (appendCb) => connectSocket(
@@ -16,9 +17,13 @@ const connectToLiveSocket = (appendCb) => connectSocket(
 
 export default () => {
     const [transmissionPackets, setTransmissionPackets] = useState([]);
-    connectToLiveSocket(({ CpuUsage }) => {
-        setTransmissionPackets([...transmissionPackets, CpuUsage]);
-    })
+
+    useEffect(() => {
+        connectToLiveSocket(({ CpuUsage }) => {
+            console.log(CpuUsage)
+            setTransmissionPackets([...transmissionPackets, CpuUsage]);
+        })
+    }, []);
 
     return (
         <div>
