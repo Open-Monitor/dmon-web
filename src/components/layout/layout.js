@@ -8,7 +8,7 @@ export default (Component) => {
     return (props) => (
         <Layout>
             <Header />
-            <Layout.Content style={{ padding: '0 50px' }}>
+            <Layout.Content>
                 <Component {...props}/>
             </Layout.Content>
         </Layout>
