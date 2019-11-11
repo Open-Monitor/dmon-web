@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 
 import manifest from '../../config/manifest';
 import { connectSocket } from '../../helpers';
@@ -15,10 +15,12 @@ const connectToLiveSocket = (appendCb) => connectSocket(
 export default () => {
     const [transmissionPackets, setTransmissionPackets] = useState([]);
 
-    connectToLiveSocket(({ CpuUsage }) => {
-        console.log(CpuUsage)
-        setTransmissionPackets([...transmissionPackets, CpuUsage]);
-    })
+    useEffect(() => {
+        connectToLiveSocket(({ CpuUsage }) => {
+            console.log(CpuUsage)
+            setTransmissionPackets([...transmissionPackets, CpuUsage]);
+        })
+    }, []);
 
     return (
         <>
