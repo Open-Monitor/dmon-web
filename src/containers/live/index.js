@@ -16,39 +16,35 @@ const connectToLiveSocket = (appendCb) => connectSocket(
     live.on('liveTransmission', (transmissionPacket) => appendCb(transmissionPacket));
   });
 
-const convertTransmissionPacketToPoint = (packets, packet, type) => [
-  ...packets[type],
-  { [packet.IP]: [
-    ...(!!packet[type][packet.IP]) ? packet[type][packet.IP] : [], packet[type]
+const convertTransmissionPacketToPoint = (current, packet, type) => ({
+  ...current[type],
+  [packet.IP]: [
+    ...((current[type][packet.IP] !== undefined) ? current[type][packet.IP] : []),
+    packet[type],
   ]
-}]
+})
 
 export default () => {
   const [transmissionPackets, setTransmissionPackets] = useState({
-    CpuUsage: [],
-    MemoryTotal: [],
+    CpuUsage: {},
   });
+  const [titles, setTitle] = useState([]);
 
-  // [type][ip]
-  useEffect(() => {
-    connectToLiveSocket((packet) => {
-      setTransmissionPackets({
-        CpuUsage: convertTransmissionPacketToPoint(transmissionPackets, packet, 'CpuUsage')
-      })
+  const connect = connectToLiveSocket((packet) => {
+    setTitle([...titles.filter(t => t !== packet.IP), packet.IP])
+    setTransmissionPackets({
+      CpuUsage: convertTransmissionPacketToPoint(transmissionPackets, packet, 'CpuUsage')
     })
-  }, []);
+  })
 
-  console.log('tran', transmissionPackets)
+  useEffect(() => connect, []);
 
   return (
     <div>
       <Container fluid="true" className="main-cont py-5">
         <Row className="">
           <GraphContainer title="Cpu">
-            <LineGraph data={transmissionPackets.CpuUsage} title="Cpu" />
-          </GraphContainer>
-          <GraphContainer title="Memory">
-            <LineGraph data={transmissionPackets.MemoryTotal} title="Network" />
+            <LineGraph labels={titles} data={transmissionPackets.CpuUsage} title="Cpu" />
           </GraphContainer>
         </Row>
       </Container>
