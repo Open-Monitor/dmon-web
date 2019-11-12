@@ -16,20 +16,29 @@ const connectToLiveSocket = (appendCb) => connectSocket(
     live.on('liveTransmission', (transmissionPacket) => appendCb(transmissionPacket));
   });
 
+const convertTransmissionPacketToPoint = (packets, packet, type) => [
+  ...packets[type],
+  { [packet.IP]: [
+    ...(!!packet[type][packet.IP]) ? packet[type][packet.IP] : [], packet[type]
+  ]
+}]
+
 export default () => {
   const [transmissionPackets, setTransmissionPackets] = useState({
     CpuUsage: [],
     MemoryTotal: [],
   });
 
+  // [type][ip]
   useEffect(() => {
-    connectToLiveSocket(({ CpuUsage, MemoryTotal }) => {     
+    connectToLiveSocket((packet) => {
       setTransmissionPackets({
-        CpuUsage: [...transmissionPackets.CpuUsage, CpuUsage],
-        MemoryTotal: [...transmissionPackets.MemoryTotal, MemoryTotal],
+        CpuUsage: convertTransmissionPacketToPoint(transmissionPackets, packet, 'CpuUsage')
       })
     })
   }, []);
+
+  console.log('tran', transmissionPackets)
 
   return (
     <div>
