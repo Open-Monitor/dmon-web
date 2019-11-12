@@ -11,20 +11,17 @@ import './index.css';
 const connectToLiveSocket = (appendCb) => connectSocket(
     `${manifest.hostMonitor}/live`,
     (live) => {
-        live.emit('subscribeToLiveTransmission', ['duh', '136.60.227.124']);
+        live.emit('subscribeToLiveTransmission', ['duh', '136.60.227.124', '157.230.154.30']);
         live.on('liveTransmission', (transmissionPacket) => appendCb(transmissionPacket));
     });
 
 export default () => {
     const [transmissionPackets, setTransmissionPackets] = useState([]);
-
     useEffect(() => {
-        connectToLiveSocket(({ CpuUsage }) => {
-            console.log(CpuUsage)
-            setTransmissionPackets([...transmissionPackets, CpuUsage]);
+        connectToLiveSocket(( transmissionPacket ) => {
+            setTransmissionPackets([...transmissionPackets, transmissionPacket]);
         })
     }, []);
-
     return (
         <div>
         <Container fluid="true" className="main-cont py-5">
@@ -36,7 +33,7 @@ export default () => {
             </Card.Header>
             <Card.Body>
             <Line data={{
-              labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+              labels: [],
                 datasets: [{
                   label: 'My First dataset',
                   backgroundColor: 'rgba(255,99,132,0.2)',
@@ -77,7 +74,7 @@ export default () => {
               </Card.Header>
               <Card.Body>
                 <Line data={{
-                  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                  labels: [],
                     datasets: [{
                       label: 'My First dataset',
                       backgroundColor: 'rgba(255,99,132,0.2)',
@@ -87,6 +84,23 @@ export default () => {
                       hoverBorderColor: 'rgba(255,99,132,1)',
                       data: transmissionPackets,
                     }]
+                }} options={{
+                    scales: {
+                    xAxes: [{
+                      gridLines: {
+                        display: false,
+                      },
+                    }],
+                    yAxes: [{
+                      gridLines: {
+                        display: true,
+                        color: 'rgba(45,50,73,1)',
+                        lineWidth: 2,
+                        drawTicks: false,
+                        drawBorder: false,
+                      },
+                    }],
+                    }
                 }} />
               </Card.Body>
               <Card.Footer className="text-muted">PUT FILTERS HERE</Card.Footer>
@@ -99,7 +113,7 @@ export default () => {
               </Card.Header>
               <Card.Body>
                 <Line data={{
-                  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                  labels: [],
                     datasets: [{
                       label: 'My First dataset',
                       backgroundColor: 'rgba(255,99,132,0.2)',
@@ -109,6 +123,23 @@ export default () => {
                       hoverBorderColor: 'rgba(255,99,132,1)',
                       data: transmissionPackets,
                     }]
+                }} options={{
+                    scales: {
+                    xAxes: [{
+                      gridLines: {
+                        display: false,
+                      },
+                    }],
+                    yAxes: [{
+                      gridLines: {
+                        display: true,
+                        color: 'rgba(45,50,73,1)',
+                        lineWidth: 2,
+                        drawTicks: false,
+                        drawBorder: false,
+                      },
+                    }],
+                    }
                 }} />
               </Card.Body>
               <Card.Footer className="text-muted">PUT FILTERS HERE</Card.Footer>
@@ -121,7 +152,7 @@ export default () => {
               </Card.Header>
               <Card.Body>
                 <Line data={{
-                  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                  labels: [],
                     datasets: [{
                       label: 'My First dataset',
                       backgroundColor: 'rgba(255,99,132,0.2)',
@@ -131,6 +162,23 @@ export default () => {
                       hoverBorderColor: 'rgba(255,99,132,1)',
                       data: transmissionPackets,
                     }]
+                }} options={{
+                    scales: {
+                    xAxes: [{
+                      gridLines: {
+                        display: false,
+                      },
+                    }],
+                    yAxes: [{
+                      gridLines: {
+                        display: true,
+                        color: 'rgba(45,50,73,1)',
+                        lineWidth: 2,
+                        drawTicks: false,
+                        drawBorder: false,
+                      },
+                    }],
+                    }
                 }} />
               </Card.Body>
               <Card.Footer className="text-muted">PUT FILTERS HERE</Card.Footer>

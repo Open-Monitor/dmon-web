@@ -4,6 +4,8 @@
 
 .dark-card {
     background-color: #222437 !important;
+    border-radius: 2px !important;
+    box-shadow: 0 2px 2px 0 #181a27;
 }
 .dark-card-header {
     color: white;
