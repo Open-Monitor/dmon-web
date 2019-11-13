@@ -9,9 +9,9 @@ import useLive from './useLive';
 import './index.css';
 
 const generateRandomRGB = () => { // move to helper.
-  const r = ~~(Math.random() * ~~255)
-  const g = ~~(Math.random() * ~~255)
-  const b = ~~(Math.random() * ~~255)
+  const r = ~~(Math.random() * 255)
+  const g = ~~(Math.random() * 255)
+  const b = ~~(Math.random() * 255)
 
   return `rgb(${r}, ${g}, ${b}`
 }
