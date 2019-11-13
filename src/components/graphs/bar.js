@@ -1,11 +1,9 @@
 import React from 'react';
 
-import { Line } from 'react-chartjs-2';
-
-
+import { Bar } from 'react-chartjs-2';
 
 export default ({ colors, data }) => (
-    <Line data={{
+    <Bar data={{
         labels: Object.keys(data),
         datasets: Object.keys(data).map(dataKey => {
             const rgb = colors[dataKey];
@@ -21,6 +19,7 @@ export default ({ colors, data }) => (
             })
         })
     }} options={{
+        maintainAspectRatio: true,
         scales: {
             xAxes: [{
                 gridLines: {
