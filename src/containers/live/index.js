@@ -1,60 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 
 import { Container, Row } from 'react-bootstrap';
 
-import { GraphContainer, UptimeContainer} from '../../components/container';
+import { GraphContainer, UptimeContainer } from '../../components/container';
 import { LineGraph, BarGraph } from '../../components/graphs';
+import { generateRgb } from '../../helpers';
 import useLive from './useLive';
 
 import './index.css';
 
-const generateRandomRGB = () => { // move to helper.
-  const r = ~~(Math.random() * 255)
-  const g = ~~(Math.random() * 255)
-  const b = ~~(Math.random() * 255)
+const updateTransmissionPacket = (current, packet, types) => {
+  const updated = { ...current };
 
-  return `rgb(${r}, ${g}, ${b}`
+  types.forEach(type => {
+    updated[type] = {
+      ...current[type],
+      [packet.IP]: [
+        ...((current[type][packet.IP] !== undefined) ? current[type][packet.IP] : []),
+        packet[type],
+      ]
+    }
+  });
+
+  return updated;
 }
 
-const convertTransmissionPacketToPoint = (current, packet, type) => ({
-  ...current[type],
-  [packet.IP]: [
-    ...((current[type][packet.IP] !== undefined) ? current[type][packet.IP] : []),
-    packet[type],
-  ]
-})
+const INITIAL_TRANSMISSION_STATE = {
+  CpuUsage: {},
+  UpTime: {},
+  MemoryUsed: {},
+  InboundBandwithBytes: {},
+  OutboundBandwithBytes: {},
+  InboundBandwithPackets: {},
+  OutboundBandwithPackets: {},
+  hostName: {},
+  DeviceID: {},
+}
 
 export default () => {
-  const [transmissionPackets, setTransmissionPackets] = useState({
-    CpuUsage: {},
-    UpTime: {},
-    MemoryUsed: {},
-    InboundBandwithBytes: {},
-    OutboundBandwithBytes: {},
-    InboundBandwithPackets: {},
-    OutboundBandwithPackets: {},
-    hostName: {},
-    DeviceID: {},
-  });
+  const [transmissionPackets, setTransmissionPackets] = useState(INITIAL_TRANSMISSION_STATE);
   const [colors, setColors] = useState([]);
+  const stateKeys = useMemo(
+    () => Object.keys(INITIAL_TRANSMISSION_STATE),
+    [INITIAL_TRANSMISSION_STATE]
+  );
 
   useLive((packet) => {
-    setColors(prev =>  (
+    setColors(prev => (
       prev[packet.IP] === undefined
-    ) ? { ...prev, [packet.IP]: generateRandomRGB() }
+    ) ? { ...prev, [packet.IP]: generateRgb() }
       : prev
     );
 
     setTransmissionPackets(prev => ({
-      UpTime: convertTransmissionPacketToPoint(prev, packet, 'UpTime'),
-      hostName: convertTransmissionPacketToPoint(prev, packet, 'hostName'),
-      DeviceID: convertTransmissionPacketToPoint(prev, packet, 'DeviceID'),
-      CpuUsage: convertTransmissionPacketToPoint(prev, packet, 'CpuUsage'),
-      MemoryUsed: convertTransmissionPacketToPoint(prev, packet, 'MemoryUsed'),
-      InboundBandwithBytes: convertTransmissionPacketToPoint(prev, packet, 'InboundBandwithBytes'),
-      OutboundBandwithBytes: convertTransmissionPacketToPoint(prev, packet, 'OutboundBandwithBytes'),
-      InboundBandwithPackets: convertTransmissionPacketToPoint(prev, packet, 'InboundBandwithPackets'),
-      OutboundBandwithPackets: convertTransmissionPacketToPoint(prev, packet, 'OutboundBandwithPackets'),
+      ...updateTransmissionPacket(prev, packet, stateKeys),
     }))
   },
     ['duh',
@@ -71,7 +70,7 @@ export default () => {
     <div>
       <Container fluid="true" className="main-cont py-5">
         <Row>
-          <UptimeContainer title="Connected Server List" hostName={transmissionPackets.hostName} deviceID={transmissionPackets.DeviceID} data={transmissionPackets.UpTime}/>
+          <UptimeContainer title="Connected Server List" hostName={transmissionPackets.hostName} deviceID={transmissionPackets.DeviceID} data={transmissionPackets.UpTime} />
         </Row>
         <Row className="">
           <GraphContainer title="Cpu">

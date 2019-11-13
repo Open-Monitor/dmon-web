@@ -18,11 +18,11 @@ export default ({ colors, data, hostName }) => (
             return ({
                 label: hostName[dataKey][0],
                 fill: false,
-                backgroundColor: `${rgb},0.2)`,
-                borderColor: `${rgb},1)`,
+                backgroundColor: `rgb(${rgb},0.2)`,
+                borderColor: `rgb(${rgb},1)`,
                 borderWidth: 1,
-                hoverBackgroundColor: `${rgb},0.4)`,
-                hoverBorderColor: `${rgb},1)`,
+                hoverBackgroundColor: `rgb(${rgb},0.4)`,
+                hoverBorderColor: `rgb(${rgb},1)`,
                 data: data[dataKey],
             })
         })
