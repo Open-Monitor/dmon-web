@@ -3,7 +3,7 @@ import React, { useState, useMemo } from 'react';
 import { Container, Row } from 'react-bootstrap';
 
 import { GraphContainer, UptimeContainer } from '../../components/container';
-import { LineGraph, BarGraph } from '../../components/graphs';
+import { LineGraph, BarGraph, HorizontalBarGraph, PolarGraph } from '../../components/graphs';
 import { generateRgb } from '../../helpers';
 import useLive from './useLive';
 
@@ -46,7 +46,7 @@ export default () => {
     () => Object.keys(INITIAL_TRANSMISSION_STATE),
     [INITIAL_TRANSMISSION_STATE]
   );
-
+  const barLabels = [Object.values(transmissionPackets.hostName).map(i => i[0])];
   useLive((packet) => {
     setColors(prev => (
       prev[packet.IP] === undefined
@@ -86,34 +86,38 @@ export default () => {
             />
           </GraphContainer>
           <GraphContainer title="Inbound Bytes">
-            <LineGraph
+            <HorizontalBarGraph
               colors={colors}
               data={transmissionPackets.InboundBandwithBytes}
               hostName={transmissionPackets.hostName}
+              barLabels={barLabels}
               title="Inbound Bytes"
             />
           </GraphContainer>
           <GraphContainer title="Outbound Bytes">
-            <LineGraph
+            <HorizontalBarGraph
               colors={colors}
               data={transmissionPackets.OutboundBandwithBytes}
               hostName={transmissionPackets.hostName}
+              barLabels={barLabels}
               title="Outbound Bytes"
             />
           </GraphContainer>
           <GraphContainer title="Inbound Packets">
-            <LineGraph
+            <HorizontalBarGraph
               colors={colors}
               data={transmissionPackets.InboundBandwithPackets}
               hostName={transmissionPackets.hostName}
+              barLabels={barLabels}
               title="Outbound Packets"
             />
           </GraphContainer>
           <GraphContainer title="Outbound Packets">
-            <LineGraph
+            <HorizontalBarGraph
               colors={colors}
               data={transmissionPackets.OutboundBandwithPackets}
               hostName={transmissionPackets.hostName}
+              barLabels={barLabels}
               title="Outbound Packets"
             />
           </GraphContainer>

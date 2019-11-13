@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Bar } from 'react-chartjs-2';
+import { HorizontalBar } from 'react-chartjs-2';
 
 export default ({ colors, data, hostName, barLabels}) => (
-    <Bar data={{
+    <HorizontalBar data={{
         labels: barLabels||[""],
         datasets: Object.keys(data).map((dataKey, index) => {
             const rgb = colors[dataKey];

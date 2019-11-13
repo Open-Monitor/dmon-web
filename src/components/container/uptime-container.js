@@ -22,10 +22,10 @@ export default ({ title, data, hostName, deviceID }) => (
                 <tbody>
                 {Object.keys(data).map((dataKey, index) =>
                   <tr key={index}>
-                    <td>{index}</td>
+                    <td>{index+1}</td>
                     <td>{Object.values(hostName)[index][0]}</td>
                     <td>{data[dataKey].slice(-1)[0]}</td>
-                    <td>{dataKey}</td>
+                    <td>{dataKey.replace(/(?:\.\d+){2}$/, '')+".*.*"}</td>
                     <td>{Object.values(deviceID)[index][0]}</td>
                   </tr>
                 )}
