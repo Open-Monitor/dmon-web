@@ -7,6 +7,8 @@ import { LineGraph, BarGraph } from '../../components/graphs';
 import { generateRgb } from '../../helpers';
 import useLive from './useLive';
 
+import ips from '../../config.js'
+
 import './index.css';
 
 const updateTransmissionPacket = (current, packet, types) => {
@@ -56,13 +58,7 @@ export default () => {
       ...updateTransmissionPacket(prev, packet, stateKeys),
     }))
   },
-    ['duh',
-      '136.60.227.124', '157.230.154.30',
-      '159.65.252.198', '157.245.178.118',
-      '167.99.163.22', '68.183.171.34',
-      '165.227.85.54', '104.248.185.82',
-      '138.68.216.78', '107.182.236.30',
-      '107.182.236.30', '162.220.51.89'],
+    ips,
     [transmissionPackets]
   );
 
@@ -77,6 +73,7 @@ export default () => {
             <LineGraph
               colors={colors}
               data={transmissionPackets.CpuUsage}
+              hostName={transmissionPackets.hostName}
               title="Cpu"
             />
           </GraphContainer>
@@ -84,6 +81,7 @@ export default () => {
             <LineGraph
               colors={colors}
               data={transmissionPackets.MemoryUsed}
+              hostName={transmissionPackets.hostName}
               title="MemoryUsed"
             />
           </GraphContainer>
@@ -91,6 +89,7 @@ export default () => {
             <LineGraph
               colors={colors}
               data={transmissionPackets.InboundBandwithBytes}
+              hostName={transmissionPackets.hostName}
               title="Inbound Bytes"
             />
           </GraphContainer>
@@ -98,6 +97,7 @@ export default () => {
             <LineGraph
               colors={colors}
               data={transmissionPackets.OutboundBandwithBytes}
+              hostName={transmissionPackets.hostName}
               title="Outbound Bytes"
             />
           </GraphContainer>
@@ -105,6 +105,7 @@ export default () => {
             <LineGraph
               colors={colors}
               data={transmissionPackets.InboundBandwithPackets}
+              hostName={transmissionPackets.hostName}
               title="Outbound Packets"
             />
           </GraphContainer>
@@ -112,6 +113,7 @@ export default () => {
             <LineGraph
               colors={colors}
               data={transmissionPackets.OutboundBandwithPackets}
+              hostName={transmissionPackets.hostName}
               title="Outbound Packets"
             />
           </GraphContainer>
