@@ -21,7 +21,7 @@ export default ({ title, data, hostName, deviceID }) => (
                 </thead>
                 <tbody>
                 {Object.keys(data).map((dataKey, index) =>
-                  <tr>
+                  <tr key={index}>
                     <td>{index}</td>
                     <td>{Object.values(hostName)[index][0]}</td>
                     <td>{data[dataKey].slice(-1)[0]}</td>

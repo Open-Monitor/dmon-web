@@ -4,13 +4,19 @@ import { Line } from 'react-chartjs-2';
 
 
 
-export default ({ colors, data }) => (
+export default ({ colors, data, hostName }) => (
     <Line data={{
-        labels: Object.keys(data),
+        labels: [
+          new Date(Date.now() - 1000* (60*10)).toLocaleTimeString(),
+          new Date(Date.now() - 1000* (60*7.5)).toLocaleTimeString(),
+          new Date(Date.now() - 1000* (60*5)).toLocaleTimeString(),
+          new Date(Date.now() - 1000* (60*2.5)).toLocaleTimeString(),
+          new Date().toLocaleTimeString()
+        ],
         datasets: Object.keys(data).map(dataKey => {
             const rgb = colors[dataKey];
             return ({
-                label: dataKey,
+                label: hostName[dataKey][0],
                 fill: false,
                 backgroundColor: `${rgb},0.2)`,
                 borderColor: `${rgb},1)`,
