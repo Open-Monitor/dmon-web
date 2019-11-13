@@ -31,9 +31,9 @@ export default () => {
   const [colors, setColors] = useState([]);
 
   useLive((packet) => {
-    setColors(prev => (
+    setColors(prev =>  (
       prev[packet.IP] === undefined
-    ) ? { ...colors, [packet.IP]: generateRandomRGB() }
+    ) ? { ...prev, [packet.IP]: generateRandomRGB() }
       : prev
     );
 
