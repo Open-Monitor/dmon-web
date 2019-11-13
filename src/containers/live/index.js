@@ -4,17 +4,10 @@ import { Container, Row } from 'react-bootstrap';
 
 import { GraphContainer, UptimeContainer} from '../../components/container';
 import { LineGraph, BarGraph } from '../../components/graphs';
+import { generateRgb } from '../../helpers';
 import useLive from './useLive';
 
 import './index.css';
-
-const generateRandomRGB = () => { // move to helper.
-  const r = ~~(Math.random() * 255)
-  const g = ~~(Math.random() * 255)
-  const b = ~~(Math.random() * 255)
-
-  return `rgb(${r}, ${g}, ${b}`
-}
 
 const convertTransmissionPacketToPoint = (current, packet, type) => ({
   ...current[type],
@@ -41,7 +34,7 @@ export default () => {
   useLive((packet) => {
     setColors(prev =>  (
       prev[packet.IP] === undefined
-    ) ? { ...prev, [packet.IP]: generateRandomRGB() }
+    ) ? { ...prev, [packet.IP]: generateRgb() }
       : prev
     );
 
