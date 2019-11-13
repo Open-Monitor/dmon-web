@@ -2,19 +2,13 @@ import React from 'react';
 
 import { Line } from 'react-chartjs-2';
 
-const generateRandomRGB = () => {
-    const r = ~~(Math.random() * ~~255)
-    const g = ~~(Math.random() * ~~255)
-    const b = ~~(Math.random() * ~~255)
 
-    return `rgb(${r}, ${g}, ${b}`
-}
 
-export default ({ labels, data }) => (
+export default ({ colors, data }) => (
     <Line data={{
-        labels: labels,
+        labels: Object.keys(data),
         datasets: Object.keys(data).map(dataKey => {
-            const rgb = generateRandomRGB();
+            const rgb = colors[dataKey];
             return ({
                 label: dataKey,
                 backgroundColor: `${rgb},0.2)`,

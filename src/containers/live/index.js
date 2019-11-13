@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { Container, Row } from 'react-bootstrap';
 
-import manifest from '../../config/manifest';
-import { connectSocket } from '../../helpers';
 import GraphContainer from '../../components/container';
 import { LineGraph } from '../../components/graphs';
+import useLive from './useLive';
 
 import './index.css';
 
-const connectToLiveSocket = (appendCb) => connectSocket(
-  `${manifest.hostMonitor}/live`,
-  (live) => {
-    live.emit('subscribeToLiveTransmission', ['duh', '136.60.227.124', '157.230.154.30']);
-    live.on('liveTransmission', (transmissionPacket) => appendCb(transmissionPacket));
-  });
+const generateRandomRGB = () => { // move to helper.
+  const r = ~~(Math.random() * ~~255)
+  const g = ~~(Math.random() * ~~255)
+  const b = ~~(Math.random() * ~~255)
+
+  return `rgb(${r}, ${g}, ${b}`
+}
 
 const convertTransmissionPacketToPoint = (current, packet, type) => ({
   ...current[type],
@@ -28,23 +28,33 @@ export default () => {
   const [transmissionPackets, setTransmissionPackets] = useState({
     CpuUsage: {},
   });
-  const [titles, setTitle] = useState([]);
+  const [colors, setColors] = useState([]);
 
-  const connect = connectToLiveSocket((packet) => {
-    setTitle([...titles.filter(t => t !== packet.IP), packet.IP])
-    setTransmissionPackets({
-      CpuUsage: convertTransmissionPacketToPoint(transmissionPackets, packet, 'CpuUsage')
-    })
-  })
+  useLive((packet) => {
+    setColors(prev => (
+      prev[packet.IP] === undefined
+    ) ? { ...colors, [packet.IP]: generateRandomRGB() }
+      : prev
+    );
 
-  useEffect(() => connect, []);
+    setTransmissionPackets(prev => ({
+      CpuUsage: convertTransmissionPacketToPoint(prev, packet, 'CpuUsage')
+    }))
+  },
+    ['duh', '136.60.227.124', '157.230.154.30'],
+    [transmissionPackets]
+  );
 
   return (
     <div>
       <Container fluid="true" className="main-cont py-5">
         <Row className="">
           <GraphContainer title="Cpu">
-            <LineGraph labels={titles} data={transmissionPackets.CpuUsage} title="Cpu" />
+            <LineGraph
+              colors={colors}
+              data={transmissionPackets.CpuUsage}
+              title="Cpu"
+            />
           </GraphContainer>
         </Row>
       </Container>
