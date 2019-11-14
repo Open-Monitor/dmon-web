@@ -2,6 +2,9 @@
     background-color: #1c1e2f;
 }
 
+::-webkit-scrollbar {
+    display:none;
+}
 .dark-card {
     background-color: #222437 !important;
     border-radius: 2px !important;

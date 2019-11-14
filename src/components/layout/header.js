@@ -1,15 +1,14 @@
 import React from 'react';
 
-//import { Layout, Menu, Icon, Select} from 'antd';
-import { Nav, Navbar, NavDropdown, Select} from 'react-bootstrap';
+import { Nav, Navbar, NavDropdown} from 'react-bootstrap';
 
 import  './header.css';
 
 export default () => (
   <div>
-  <Navbar fixed="top" className="dark-nav px-md-5" variant="dark" expand="md">
+  <Navbar fixed="top" className="dark-nav px-md-5"  variant="dark" expand="md">
     <Navbar.Brand href="/">
-      <img className="mr-2" height="32" style={{transform: 'translateY(-1px)'}}src={process.env.PUBLIC_URL +'/logo2.png'}/>
+      <img className="mr-2" height="32" style={{transform: 'translateY(-1px)'}} src={process.env.PUBLIC_URL +'/logo2.png'} alt="Open Monitor Logo"/>
       <span>Open Monitor</span>
     </Navbar.Brand>
     <Navbar.Toggle className="dark-nav-toggler" aria-controls="basic-navbar-nav" />
@@ -22,7 +21,7 @@ export default () => (
         </Nav>
         <Nav className="ml-auto">
             <Nav.Link href="https://github.com/Open-Monitor/dmon" target="_blank">
-              <img src={process.env.PUBLIC_URL +'/GitHub-Mark-Light-32px.png'}/>
+              <img src={process.env.PUBLIC_URL +'/GitHub-Mark-Light-32px.png'} alt="Github Link"/>
             </Nav.Link>
         </Nav>
       </Navbar.Collapse>

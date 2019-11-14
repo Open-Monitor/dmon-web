@@ -64,10 +64,7 @@ export default () => {
 
   return (
     <div>
-      <Container fluid="true" className="main-cont py-5">
-        <Row>
-          <UptimeContainer title="Connected Server List" hostName={transmissionPackets.hostName} deviceID={transmissionPackets.DeviceID} data={transmissionPackets.UpTime} />
-        </Row>
+      <Container fluid="true" className="main-cont mt-5" style={{ paddingTop: '1rem' }}>
         <Row className="">
           <GraphContainer title="Cpu">
             <LineGraph
@@ -121,6 +118,9 @@ export default () => {
               title="Outbound Packets"
             />
           </GraphContainer>
+        </Row>
+        <Row>
+          <UptimeContainer title="Connected Server List" hostName={transmissionPackets.hostName} deviceID={transmissionPackets.DeviceID} data={transmissionPackets.UpTime} />
         </Row>
       </Container>
     </div>

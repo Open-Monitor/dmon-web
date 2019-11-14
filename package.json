@@ -7,6 +7,8 @@
     "chart.js": "^2.9.2",
     "react": "^16.11.0",
     "react-bootstrap": "^1.0.0-beta.14",
+    "react-bootstrap-sidebar": "0.0.1",
+    "react-burger-menu": "^2.6.12",
     "react-chartjs-2": "^2.8.0",
     "react-dom": "^16.11.0",
     "react-fontawesome": "^1.7.1",
