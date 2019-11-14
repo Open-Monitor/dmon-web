@@ -5,11 +5,12 @@ import LayoutHoc from './components/layout';
 
 import {Live} from './containers';
 
-//import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default () => (
   <BrowserRouter>
-    <Route to="/" component={LayoutHoc(Live)}/>
+    <Route exact path="/" component={LayoutHoc(Live)}/>
+    <Route exact path="/live" component={LayoutHoc(Live)} />
+    <Route exact path="/live/:ip" component={LayoutHoc(Live)} />
   </BrowserRouter>
 )

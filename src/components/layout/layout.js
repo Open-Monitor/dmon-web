@@ -6,7 +6,7 @@ import SideNav from './leftbar';
 import './header.css'
 
 export default (Component) => {
-    return (props) => (
+  return (props) => (
       <div>
           <div className="" id="page-wrap">
             <Header />
