@@ -6,6 +6,7 @@
     "bootstrap": "^4.3.1",
     "chart.js": "^2.9.2",
     "react": "^16.11.0",
+    "react-autosuggest": "^9.4.3",
     "react-bootstrap": "^1.0.0-beta.14",
     "react-bootstrap-sidebar": "0.0.1",
     "react-burger-menu": "^2.6.12",

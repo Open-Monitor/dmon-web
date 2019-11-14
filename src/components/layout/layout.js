@@ -7,12 +7,11 @@ import './header.css'
 
 export default (Component) => {
   return (props) => (
-      <div>
-          <div className="" id="page-wrap">
-            <Header />
-            <SideNav />
-            <Component {...props}/>
-          </div>
-      </div>
-    )
+    <div className="" id="page-wrap">
+      <Header style={{ position: 'absolute' }}>
+        <SideNav />
+        <Component {...props} />
+      </Header>
+    </div>
+  )
 }

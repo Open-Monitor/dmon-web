@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useContext, useEffect } from 'react';
 
 import { Breadcrumb, Container, Row } from 'react-bootstrap'
 
@@ -9,8 +9,9 @@ import INITIAL_TRANSMISSION_STATE from './initial_state';
 import { generateRgb, updateTransmissionPacket } from '../../helpers';
 import Single from './container-single';
 import All from './container-all';
+import { autoSuggestContext } from '../../components/layout/header';
 
-export default ({ match: { params } }) => {
+export default ({ match: { params }, history }) => {
   const [transmissionPackets, setTransmissionPackets] = useState(INITIAL_TRANSMISSION_STATE); // todo: might want to change out this state for reducers.
   const [colors, setColors] = useState([]);
 
@@ -18,6 +19,17 @@ export default ({ match: { params } }) => {
     () => Object.keys(INITIAL_TRANSMISSION_STATE),
     [INITIAL_TRANSMISSION_STATE]
   );
+
+  const { updateSuggestions, setHandlerCb } = useContext(autoSuggestContext);
+  useEffect(() => {
+    setHandlerCb({
+      fn: (item) => history.push(`/live/${item}`)
+    });
+
+    updateSuggestions(ips.map(x => ({
+      name: x,
+    })))
+  }, [])
 
   useLive((packet) => {
     setColors(prev => (
@@ -39,8 +51,8 @@ export default ({ match: { params } }) => {
       <Container fluid className="main-cont mt-5" style={{ paddingTop: '2rem' }}>
         <Row>
           <Breadcrumb className="bcrumbs">
-            <Breadcrumb.Item  className="bcrumb-item-false" href={params.ip === undefined ? undefined: "/"}>Home</Breadcrumb.Item>
-            <Breadcrumb.Item  className="bcrumb-item" href={params.ip === undefined ? undefined: "/live"}>Live</Breadcrumb.Item>
+            <Breadcrumb.Item className="bcrumb-item-false" href={params.ip === undefined ? undefined : "/"}>Home</Breadcrumb.Item>
+            <Breadcrumb.Item className="bcrumb-item" href={params.ip === undefined ? undefined : "/live"}>Live</Breadcrumb.Item>
             <Breadcrumb.Item className="bcrumb-item">
               {
                 params.ip
