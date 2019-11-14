@@ -13,12 +13,6 @@ export default () => (
     </Navbar.Brand>
     <Navbar.Toggle className="dark-nav-toggler" aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="">
-          <NavDropdown className="" title="Toggle Live" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#">Live</NavDropdown.Item>
-            <NavDropdown.Item href="#">Archive</NavDropdown.Item>
-          </NavDropdown>
-        </Nav>
         <Nav className="ml-auto">
             <Nav.Link href="https://github.com/Open-Monitor/dmon" target="_blank">
               <img src={process.env.PUBLIC_URL +'/GitHub-Mark-Light-32px.png'} alt="Github Link"/>
