@@ -10,8 +10,9 @@ import Single from './container-single';
 import All from './container-all';
 
 export default ({ match: { params }}) => {
-  const [transmissionPackets, setTransmissionPackets] = useState(INITIAL_TRANSMISSION_STATE);
+  const [transmissionPackets, setTransmissionPackets] = useState(INITIAL_TRANSMISSION_STATE); // todo: might want to change out this state for reducers.
   const [colors, setColors] = useState([]);
+
   const stateKeys = useMemo(
     () => Object.keys(INITIAL_TRANSMISSION_STATE),
     [INITIAL_TRANSMISSION_STATE]
@@ -28,7 +29,7 @@ export default ({ match: { params }}) => {
         ...updateTransmissionPacket(prev, packet, stateKeys),
       }))
     },
-    !!params.id ? [params.id] : ips,
+    !!params.ip ? [params.ip] : ips,
     [transmissionPackets, params.id]
   );
 
