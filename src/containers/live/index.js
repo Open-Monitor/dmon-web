@@ -46,8 +46,7 @@ export default () => {
     () => Object.keys(INITIAL_TRANSMISSION_STATE),
     [INITIAL_TRANSMISSION_STATE]
   );
-  const barLabels = [Object.values(transmissionPackets.hostName).map(i => i[0])];
-  useLive((packet) => {
+  useLive((packet) => {   
     setColors(prev => (
       prev[packet.IP] === undefined
     ) ? { ...prev, [packet.IP]: generateRgb() }
@@ -74,7 +73,7 @@ export default () => {
               title="Cpu"
             />
           </GraphContainer>
-          <GraphContainer title="Memory Useage">
+          <GraphContainer title="Memory Usage">
             <LineGraph
               colors={colors}
               data={transmissionPackets.MemoryUsed}
@@ -87,7 +86,6 @@ export default () => {
               colors={colors}
               data={transmissionPackets.InboundBandwithBytes}
               hostName={transmissionPackets.hostName}
-              barLabels={barLabels}
               title="Inbound Bytes"
             />
           </GraphContainer>
@@ -96,7 +94,6 @@ export default () => {
               colors={colors}
               data={transmissionPackets.OutboundBandwithBytes}
               hostName={transmissionPackets.hostName}
-              barLabels={barLabels}
               title="Outbound Bytes"
             />
           </GraphContainer>
@@ -105,7 +102,6 @@ export default () => {
               colors={colors}
               data={transmissionPackets.InboundBandwithPackets}
               hostName={transmissionPackets.hostName}
-              barLabels={barLabels}
               title="Outbound Packets"
             />
           </GraphContainer>
@@ -114,7 +110,6 @@ export default () => {
               colors={colors}
               data={transmissionPackets.OutboundBandwithPackets}
               hostName={transmissionPackets.hostName}
-              barLabels={barLabels}
               title="Outbound Packets"
             />
           </GraphContainer>
