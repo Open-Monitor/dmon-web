@@ -12,7 +12,7 @@ export default () => {
   const { transmissionPackets, colors } = useContext(context); 
 
   return (
-    <Container fluid="true" className="main-cont mt-5" style={{ paddingTop: '1rem' }}>
+    <Container fluid="true" className="main-cont">
       <Row>
         <UptimeContainer
           title="Connected Server List"

@@ -12,15 +12,7 @@ export default () => {
   const { transmissionPackets, colors } = useContext(context); 
 
   return (
-    <Container fluid="true" className="main-cont mt-5" style={{ paddingTop: '1rem' }}>
-      <Row>
-        <UptimeContainer
-          title="Connected Server List"
-          hostName={transmissionPackets.hostName}
-          deviceID={transmissionPackets.DeviceID}
-          data={transmissionPackets.UpTime}
-        />
-      </Row>
+    <Container fluid="true" className="main-cont">
       <Row className="">
         <GraphContainer title="Cpu">
           <LineGraph
