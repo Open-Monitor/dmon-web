@@ -20,3 +20,34 @@
     letter-spacing: 3px;
     margin-bottom: 0px;
 }
+
+.bcrumbs {
+    padding-left: 2rem;
+}
+
+.breadcrumb {
+    margin-bottom: 0px !important;
+    background-color: #222437 !important;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.bcrumb-item-false a {
+    color: white;
+    cursor: default;
+}
+.bcrumb-item-false:hover a {
+    color: white;
+    text-decoration: none;
+}
+
+.bcrumb-item a {
+    color: white;
+}
+
+
+.bcrumb-item:hover a {
+    color: rgba(255,255,255, 0.4);
+    text-decoration: none;
+}

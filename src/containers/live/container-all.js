@@ -9,7 +9,7 @@ import context from './context';
 import './index.css';
 
 export default () => {
-  const { transmissionPackets, colors } = useContext(context); 
+  const { transmissionPackets, colors } = useContext(context);
 
   return (
     <Container fluid="true" className="main-cont">
@@ -22,7 +22,7 @@ export default () => {
         />
       </Row>
       <Row className="">
-        <GraphContainer title="Cpu">
+        <GraphContainer title="Cpu" info="Percentage of usage on all cores.">
           <LineGraph
             colors={colors}
             data={transmissionPackets.CpuUsage}
@@ -30,7 +30,7 @@ export default () => {
             title="Cpu"
           />
         </GraphContainer>
-        <GraphContainer title="Memory Usage">
+        <GraphContainer title="Memory Usage" info="Memory usage is measured in KiloBytes.">
           <LineGraph
             colors={colors}
             data={transmissionPackets.MemoryUsed}
@@ -38,7 +38,7 @@ export default () => {
             title="MemoryUsed"
           />
         </GraphContainer>
-        <GraphContainer title="Inbound Bytes">
+        <GraphContainer title="Inbound Bytes" info="Total number of KiloBytes received by the server.">
           <HorizontalBarGraph
             colors={colors}
             data={transmissionPackets.InboundBandwithBytes}
@@ -46,7 +46,7 @@ export default () => {
             title="Inbound Bytes"
           />
         </GraphContainer>
-        <GraphContainer title="Outbound Bytes">
+        <GraphContainer title="Outbound Bytes" info="Total number of KiloBytes sent from the server.">
           <HorizontalBarGraph
             colors={colors}
             data={transmissionPackets.OutboundBandwithBytes}
@@ -54,7 +54,7 @@ export default () => {
             title="Outbound Bytes"
           />
         </GraphContainer>
-        <GraphContainer title="Inbound Packets">
+        <GraphContainer title="Inbound Packets" info="Total number of packets received by the server.">
           <HorizontalBarGraph
             colors={colors}
             data={transmissionPackets.InboundBandwithPackets}
@@ -62,7 +62,7 @@ export default () => {
             title="Outbound Packets"
           />
         </GraphContainer>
-        <GraphContainer title="Outbound Packets">
+        <GraphContainer title="Outbound Packets"info="Total number of packets sent from the server.">
           <HorizontalBarGraph
             colors={colors}
             data={transmissionPackets.OutboundBandwithPackets}
